@@ -33,11 +33,11 @@
 					<c:forEach items="${boardList }" var="bList">
 						<tr>
 							<td>${bList.no }</td>
-							<td><a href="/mysite/bbs?a=view&no=${bList.no }">${bList.title }</a></td>
-						<%-- vo 업데이트 후 테스트
+							<td><a href="/mysite/bbs?a=view&no=${authUser.no }">${bList.title }</a></td>
+						
 							<td>${bList.name }</td>
 							<td>${bList.hit }</td>
-							<td>${bList.date }</td> --%>
+							<td>${bList.date }</td>
 							<!--삭제를 누르면 어디로 가야하나
 							본인이 쓴 글만 삭제버튼 보이게 로직 짜기-->
 							<td><a href="" class="del">삭제</a></td>

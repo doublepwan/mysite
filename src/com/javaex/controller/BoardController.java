@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.javaex.dao.BoardDao;
 import com.javaex.util.WebUtil;
 import com.javaex.vo.BoardVo;
+import com.javaex.vo.UserVo;
 
 @WebServlet("/bbs")
 public class BoardController extends HttpServlet {
@@ -27,9 +28,9 @@ public class BoardController extends HttpServlet {
 		if ("list".equals(actionName)) {
 			System.out.println("list 들어옴");
 			BoardDao dao = new BoardDao();
-			List<BoardVo> list = dao.getList();
+			List<BoardVo> boardList = dao.getList();
 
-			request.setAttribute("list", list);
+			request.setAttribute("boardList", boardList);
 			WebUtil.forward(request, response, "/WEB-INF/views/board/list.jsp");
 		}
 
@@ -54,52 +55,80 @@ public class BoardController extends HttpServlet {
 			BoardDao dao = new BoardDao();
 			dao.insert(vo);
 
-		} else if ("getOne".equals(actionName)) {
-			System.out.println("글하나 가져오기");
+		} 
+//		else if ("getOne".equals(actionName)) {
+//			System.out.println("글하나 가져오기");
+//			HttpSession session = request.getSession(true);
+//			UserVo authUser = (UserVo) session.getAttribute("authUser");
+//
+//			if (authUser == null) {// 로그인x
+//
+//			} else {// 로그인
+//
+//				// (no,title,content) 가져오기
+//				// jsp파일에서 no 받는 장치가 없으니까 세션에서 no 가져온다
+//				int no = authUser.getNo();
+//				String title = request.getParameter("title");
+//				String content = request.getParameter("content");
+//
+//				// 가지고온 데이터 vo에 저장(setter 사용하거나 생성자로 받는것 중 선택)
+//				BoardVo vo = new BoardVo();
+//				vo.setNo(no);
+//				vo.setTitle(title);
+//				vo.setContent(content);
+//				// dao.update(vo)
+//				BoardDao dao = new BoardDao();
+//				dao.getOne(no);
+//				//조회수 1증가
+//				dao.hitCount(no);
+//				System.out.println(vo.toString());
+//				// view로 보내기
+//				WebUtil.redirect(request, response, "/mysite/main");
+//			}
+//		}
+//
+//		// else if ("write".equals(actionName)) {
+//		// System.out.println("write 들어옴");
+//		// WebUtil.forward(request, response, "/WEB-INF/views/guestbook/write.jsp");
+//		// }
+//		else if ("delete".equals(actionName)) {
+//			System.out.println("delete 들어옴");
+//			// 번호로 게시글 확인
+//			// 로그인해야 접근 가능한 게시판이니까 password는 안받는다
+//			String no = request.getParameter("no");
+//			BoardDao dao = new BoardDao();
+//			dao.delete(no);
+//			WebUtil.redirect(request, response, "gc?a=list");
+//		}
+		
+		else if("view".equals(actionName)) {
+			System.out.println("view 들어옴");
 			HttpSession session = request.getSession(true);
-			BoardVo authUser = (BoardVo) session.getAttribute("authUser");
+			UserVo authUser = (UserVo) session.getAttribute("authUser");
 
 			if (authUser == null) {// 로그인x
 
 			} else {// 로그인
 
-				// (no,name,title,content) 가져오기
+				// (no,title,content) 가져오기
 				// jsp파일에서 no 받는 장치가 없으니까 세션에서 no 가져온다
 				int no = authUser.getNo();
-				String name = request.getParameter("name");
 				String title = request.getParameter("title");
 				String content = request.getParameter("content");
 
 				// 가지고온 데이터 vo에 저장(setter 사용하거나 생성자로 받는것 중 선택)
-				BoardVo vo = new BoardVo(no, title, content);
+				BoardVo boardVo = new BoardVo();
+				boardVo.setNo(no);
+				boardVo.setTitle(title);
+				boardVo.setContent(content);
 
-				// dao.update(vo)
 				BoardDao dao = new BoardDao();
 				dao.getOne(no);
-				System.out.println(vo.toString());
-				// view로 보내기
-				WebUtil.redirect(request, response, "/mysite/main");
-			}
-		}
-
-		// else if ("write".equals(actionName)) {
-		// System.out.println("write 들어옴");
-		// WebUtil.forward(request, response, "/WEB-INF/views/guestbook/write.jsp");
-		// }
-		else if ("delete".equals(actionName)) {
-			System.out.println("delete 들어옴");
-			// 번호로 게시글 확인
-			// 로그인해야 접근 가능한 게시판이니까 password는 안받는다
-			String no = request.getParameter("no");
-			BoardDao dao = new BoardDao();
-			dao.delete(no);
-			WebUtil.redirect(request, response, "gc?a=list");
-		}
-		
-		else if("view".equals(actionName)) {
-			//getOne이랑 같이 작업
-			System.out.println("view 들어옴");
+				//조회수 1증가
+				dao.hitCount(no);
+				System.out.println(boardVo.toString());
 			WebUtil.forward(request, response, "/WEB-INF/views/board/view.jsp");
+		}
 		}
 		
 		else if ("modify".equals(actionName)) {
@@ -128,6 +157,7 @@ public class BoardController extends HttpServlet {
 		else
 			System.out.println("바보");
 	}
+		
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
