@@ -38,7 +38,7 @@
 							<td>${bList.hit }</td>
 							<td>${bList.date }</td>
 							
-							<c:if test="${authUser.name == bList.name }">
+							<c:if test="${bList.userNo == authUser.no }">
 							<td><a href="bbs?a=delete&no=${bList.no }" class="del">삭제</a></td>
 							</c:if>
 						</tr>

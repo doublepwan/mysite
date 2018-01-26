@@ -31,6 +31,7 @@ public class BoardController extends HttpServlet {
 		// 글 수정 하다가 취소하면 원래글로
 		if ("list".equals(actionName)) {
 			System.out.println("board list 들어옴");
+			
 			BoardDao dao = new BoardDao();
 			List<BoardVo> boardList = dao.getList();
 
