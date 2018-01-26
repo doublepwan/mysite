@@ -2,34 +2,35 @@ package com.javaex.vo;
 
 public class BoardVo {
 
-	private int no;
+	private String no;
 	private String title;
 	private String content;
 	private String date;
 	private int hit;
 	private String name;
-	
+	private int userNo;
 	
 	public BoardVo() {
 	}
 
 
-	public BoardVo(int no, String title, String content, String date, int hit, String name) {
+	public BoardVo(String no, String title, String content, String date, int hit, String name, int userNo) {
 		this.no = no;
 		this.title = title;
 		this.content = content;
 		this.date = date;
 		this.hit = hit;
 		this.name = name;
+		this.userNo = userNo;
 	}
 
 
-	public int getNo() {
+	public String getNo() {
 		return no;
 	}
 
 
-	public void setNo(int no) {
+	public void setNo(String no) {
 		this.no = no;
 	}
 
@@ -84,12 +85,23 @@ public class BoardVo {
 	}
 
 
+	public int getUserNo() {
+		return userNo;
+	}
+
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
+
 	@Override
 	public String toString() {
 		return "BoardVo [no=" + no + ", title=" + title + ", content=" + content + ", date=" + date + ", hit=" + hit
-				+ ", name=" + name + "]";
+				+ ", name=" + name + ", userNo=" + userNo + "]";
 	}
-	
+
+
 	
 	
 }

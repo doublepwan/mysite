@@ -16,8 +16,9 @@
 		
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="bbs?a=list">
+				<form class="board-form" method="get" action="bbs">
 					<input type = "hidden" name = "a" value="insert">
+					<input type = "hidden" name = "a" value="list">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>
@@ -34,7 +35,7 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="/mysite/board">취소</a>
+						<a href="bbs?a=list">취소</a>
 						<input type="submit" value="등록">
 					</div>
 				</form>				

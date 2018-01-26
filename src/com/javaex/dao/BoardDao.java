@@ -14,11 +14,11 @@ import com.javaex.vo.UserVo;
 
 public class BoardDao {
 	
-	public BoardVo getOne(int no) {
+	public BoardVo getOne(String no) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
-		BoardVo vo = null;
+		BoardVo boardVo = null;
 
 		try {
 			// JDBC 드라이버(Oracle)로딩
@@ -29,23 +29,30 @@ public class BoardDao {
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			// sql문 준비 / 바인딩 / 실행
-			String query = "select title, content from board where no= ?";
+			String query = "select no, title, content, hit, reg_date, user_no from board where no= ?";
 						   
 
 			psmt = conn.prepareStatement(query);
-			psmt.setInt(1, no);
+			psmt.setString(1, no);
 			rs = psmt.executeQuery();
 
 			// 결과처리
 			while (rs.next()) {
-				no = rs.getInt("no");
-				String title = rs.getString("title");  
-				String content = rs.getString("content");  
-				vo = new BoardVo();
-				vo.setNo(no);
-				vo.setTitle(title);
-				vo.setContent(content);
-
+				boardVo = new BoardVo();
+				no = rs.getString("no");
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				int hit = rs.getInt("hit");
+				String date = rs.getString("reg_date");
+				int userNo = rs.getInt("user_no");
+				
+				boardVo.setNo(no);
+				boardVo.setTitle(title);
+				boardVo.setContent(content);
+				boardVo.setHit(hit);
+				boardVo.setDate(date);
+				boardVo.setUserNo(userNo);
+				
 			}
 			
 
@@ -65,7 +72,7 @@ public class BoardDao {
 				System.out.println("error : " + e);
 			}
 		}
-		return vo;
+		return boardVo;
 	}
 	
 	public List<BoardVo> getList() {
@@ -96,7 +103,7 @@ public class BoardDao {
 
 				BoardVo dto = new BoardVo();
 
-				int no = rs.getInt("no");
+				String no = rs.getString("no");
 				int hit = rs.getInt("hit");
 				String title = rs.getString("title");
 				String content = rs.getString("content");
@@ -135,7 +142,6 @@ public class BoardDao {
 	public void insert(BoardVo dto) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
-		UserVo vo = null;
 		try {
 			// JDBC 드라이버(Oracle)로딩
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -146,13 +152,12 @@ public class BoardDao {
 
 			// sql문 준비 / 바인딩 / 실행
 			String query = "";
-			query = "insert into board values (seq_board_no.nextval, ?, ?, default, default, ?)";
-			vo = new UserVo();
-			
+			query = " insert into board(no,title,content,reg_date,hit,user_no) " +
+					" values (seq_board_no.nextval, ?, ?, default, default, ?) ";
 			psmt = conn.prepareStatement(query);
 			psmt.setString(1, dto.getTitle());
 			psmt.setString(2, dto.getContent());
-			psmt.setInt(3, vo.getNo());
+			psmt.setInt(3, dto.getUserNo());
 			int count = psmt.executeUpdate();
 
 			// 결과처리
@@ -236,7 +241,7 @@ public class BoardDao {
 			psmt = conn.prepareStatement(query);
 			psmt.setString(1, vo.getTitle());
 			psmt.setString(2, vo.getContent());
-			psmt.setInt(3, vo.getNo());
+			psmt.setString(3, vo.getNo());
 
 			int count = psmt.executeUpdate();
 
@@ -263,7 +268,7 @@ public class BoardDao {
 	}
 	
 	//조회수 업데이트용 
-	public void hitCount(int no) {
+	public void hitCount(String no) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		
@@ -279,7 +284,7 @@ public class BoardDao {
 			String query = "update board set hit = hit+1 where no = ?";
 			
 			psmt = conn.prepareStatement(query);
-			psmt.setInt(1, no);
+			psmt.setString(1, no);
 
 			int count = psmt.executeUpdate();
 

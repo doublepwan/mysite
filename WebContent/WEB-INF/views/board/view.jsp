@@ -16,9 +16,7 @@
 		
 		<div id="content">
 		<div id="board" class="board-form">
-			<form action="bbs" method="get">
-			<input type="hidden" name="a" value="view">
-			<input type='hidden'name="no" value="${boardList.no }">
+			
 				<table class="tbl-ex">
 					<tr>
 						<th colspan="2">글보기</th>
@@ -31,15 +29,17 @@
 						<td class="label">내용</td>
 						<td>
 							<div class="view-content">
-								${boardVo.contetnt }<br>
+								${boardVo.content }<br>
 							</div>
 						</td>
 					</tr>
 				</table>
-				</form>
+				<!--</form  -->
 				<div class="bottom">
 					<a href="/mysite/bbs?a=list">글목록</a>
-					<a href="/mysite/bbs?a=modify">글수정</a>
+					<c:if test="${authUser.no == boardVo.userNo }">
+					<a href="/mysite/bbs?a=modify&no=${boardVo.no }">글수정</a>
+					</c:if>
 				</div>
 			</div>
 		</div>
