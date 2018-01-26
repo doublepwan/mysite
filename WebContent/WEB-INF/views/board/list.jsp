@@ -38,8 +38,8 @@
 							<td>${bList.hit }</td>
 							<td>${bList.date }</td>
 							
-							<c:if test="${not empty authUser.no && authUser.no == bList.userNo }">
-							<td><a href="" class="del">삭제</a></td>
+							<c:if test="${authUser.name == bList.name }">
+							<td><a href="bbs?a=delete&no=${bList.no }" class="del">삭제</a></td>
 							</c:if>
 						</tr>
 					</c:forEach>	
@@ -57,7 +57,9 @@
 					</ul>
 				</div>				
 				<div class="bottom">
-					<a href="/mysite/bbs?a=write" id="new-book">글쓰기</a>
+					<c:if test="${not empty authUser}">
+						<a href="bbs?a=write" id="new-book">글쓰기</a>
+					</c:if>
 				</div>				
 			</div>
 		</div>

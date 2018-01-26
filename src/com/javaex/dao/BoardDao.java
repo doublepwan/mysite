@@ -25,7 +25,7 @@ public class BoardDao {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			// Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			// sql문 준비 / 바인딩 / 실행
@@ -87,7 +87,7 @@ public class BoardDao {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			// Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			// sql문 준비 / 바인딩 / 실행
@@ -147,7 +147,7 @@ public class BoardDao {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			// Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			// sql문 준비 / 바인딩 / 실행
@@ -189,7 +189,7 @@ public class BoardDao {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			// Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			// sql문 준비 / 바인딩 / 실행
@@ -231,7 +231,7 @@ public class BoardDao {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			// Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			// sql문 준비 / 바인딩 / 실행
@@ -277,7 +277,7 @@ public class BoardDao {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			// Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			// sql문 준비 / 바인딩 / 실행

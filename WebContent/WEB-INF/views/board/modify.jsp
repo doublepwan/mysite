@@ -19,7 +19,8 @@
 		<div id="content">
 			<div id="board">
 				<form class="board-form" method="get" action="bbs">
-				<input type="hidden" name="a" value="update"> 
+				<input type="hidden" name="a" value="update">
+				<input type = "hidden" name ="no" value = "${boardVo.no }"> 
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글수정</th>

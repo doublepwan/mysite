@@ -24,10 +24,9 @@ public class BoardController extends HttpServlet {
 		String actionName = request.getParameter("a");
 		request.setCharacterEncoding("UTF-8");
 
-		// 게시판 접속하면 list.jsp로 들어옴
 		// 비회원(로그인 여부) 체크해서 insert delete update 가능하게
-		// 최근 글이 맨위로
 		// 자신이 작성한 글에만 수정, 삭제버튼
+		// 최근 글이 맨위로
 		// 조회수 증가시키기
 		// 글 수정 하다가 취소하면 원래글로
 		if ("list".equals(actionName)) {
@@ -65,15 +64,15 @@ public class BoardController extends HttpServlet {
 			dao.insert(boardVo);
 			WebUtil.redirect(request, response, "/mysite/bbs?a=list");
 		}
-		// else if ("delete".equals(actionName)) {
-		// System.out.println("delete 들어옴");
-		// // 번호로 게시글 확인
-		// //삭제버튼 클릭하면 바로 삭제후 리스트
-		// String no = request.getParameter("no");
-		// BoardDao dao = new BoardDao();
-		// dao.delete(no);
-		// WebUtil.redirect(request, response, "gc?a=list");
-		// }
+		 else if ("delete".equals(actionName)) {
+		 System.out.println("delete 들어옴");
+		 // 번호로 게시글 확인
+		 //삭제버튼 클릭하면 바로 삭제후 리스트
+		 String no = request.getParameter("no");
+		 BoardDao dao = new BoardDao();
+		 dao.delete(no);
+		 WebUtil.redirect(request, response, "bbs?a=list");
+		 }
 
 		else if ("view".equals(actionName)) {
 			System.out.println("view 들어옴");
@@ -107,10 +106,12 @@ public class BoardController extends HttpServlet {
 		else if ("update".equals(actionName)) {
 			System.out.println("수정되냐?");
 			
+			String no = request.getParameter("no");
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			
 			BoardVo boardVo = new BoardVo();
+			boardVo.setNo(no);
 			boardVo.setTitle(title);
 			boardVo.setContent(content);
 			
