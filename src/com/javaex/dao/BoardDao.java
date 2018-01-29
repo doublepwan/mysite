@@ -25,7 +25,7 @@ public class BoardDao {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			// Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			// sql문 준비 / 바인딩 / 실행
@@ -44,7 +44,7 @@ public class BoardDao {
 				String content = rs.getString("content");
 				int hit = rs.getInt("hit");
 				String date = rs.getString("reg_date");
-				int userNo = rs.getInt("user_no");
+				String userNo = rs.getString("user_no");
 				
 				boardVo.setNo(no);
 				boardVo.setTitle(title);
@@ -87,11 +87,11 @@ public class BoardDao {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			// Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			// sql문 준비 / 바인딩 / 실행
-			String query = " select b.no, u.name, b.title, b.content, b.reg_date, b.hit " + 
+			String query = " select b.no, u.name, b.title, b.content, b.reg_date, b.hit, b.user_no " + 
 						   " from board b, users u where b.user_no = u.no " +
 						   " order by b.reg_date desc";
 
@@ -109,14 +109,15 @@ public class BoardDao {
 				String content = rs.getString("content");
 				String name = rs.getString("name");
 				String date = rs.getString("reg_date");
-				
+				String userNo = rs.getString("user_no");
 				dto.setNo(no);
 				dto.setTitle(title);
 				dto.setContent(content);
 				dto.setName(name);
 				dto.setDate(date);
 				dto.setHit(hit);
-
+				dto.setUserNo(userNo);
+				
 				boardList.add(dto);
 			}
 
@@ -147,7 +148,7 @@ public class BoardDao {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			// Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			// sql문 준비 / 바인딩 / 실행
@@ -157,7 +158,7 @@ public class BoardDao {
 			psmt = conn.prepareStatement(query);
 			psmt.setString(1, dto.getTitle());
 			psmt.setString(2, dto.getContent());
-			psmt.setInt(3, dto.getUserNo());
+			psmt.setString(3, dto.getUserNo());
 			int count = psmt.executeUpdate();
 
 			// 결과처리
@@ -189,7 +190,7 @@ public class BoardDao {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			// Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			// sql문 준비 / 바인딩 / 실행
@@ -231,7 +232,7 @@ public class BoardDao {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			// Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			// sql문 준비 / 바인딩 / 실행
@@ -277,7 +278,7 @@ public class BoardDao {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			// Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			// sql문 준비 / 바인딩 / 실행

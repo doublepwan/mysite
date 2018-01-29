@@ -32,12 +32,16 @@ public class UserServlet extends HttpServlet {
 			String password = request.getParameter("password");
 			String email = request.getParameter("email");
 			String gender = request.getParameter("gender");
-
+			
+			
 			UserVo vo = new UserVo();
 			vo.setName(name);
 			vo.setPassword(password);
 			vo.setEmail(email);
 			vo.setGender(gender);
+			if(name.equals(vo.getName())) {
+				System.out.println("중복");
+			}
 
 			UserDao dao = new UserDao();
 			dao.insert(vo);
@@ -85,7 +89,7 @@ public class UserServlet extends HttpServlet {
 
 			} else {// 로그인
 					// 로그인 회원 no
-				int no = authUser.getNo();
+				String no = authUser.getNo();
 
 				// dao에서 가져오기(no)
 				UserDao dao = new UserDao();
@@ -110,7 +114,7 @@ public class UserServlet extends HttpServlet {
 				
 				//(no,name,password,gender) 가져오기
 				//jsp파일에서 no 받는 장치가 없으니까 세션에서 no 가져온다
-				int no = authUser.getNo();
+				String no = authUser.getNo();
 				String name = request.getParameter("name");
 				String password = request.getParameter("password");
 				String gender = request.getParameter("gender");
@@ -128,6 +132,7 @@ public class UserServlet extends HttpServlet {
 				WebUtil.redirect(request, response, "/mysite/main");
 			}
 		}
+		
 		// else if("update".equals(actionName)) {
 		// System.out.println("수정되냐?");
 		// HttpSession session = request.getSession();

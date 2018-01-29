@@ -24,11 +24,6 @@ public class BoardController extends HttpServlet {
 		String actionName = request.getParameter("a");
 		request.setCharacterEncoding("UTF-8");
 
-		// 비회원(로그인 여부) 체크해서 insert delete update 가능하게
-		// 자신이 작성한 글에만 수정, 삭제버튼
-		// 최근 글이 맨위로
-		// 조회수 증가시키기
-		// 글 수정 하다가 취소하면 원래글로
 		if ("list".equals(actionName)) {
 			System.out.println("board list 들어옴");
 			
@@ -54,7 +49,7 @@ public class BoardController extends HttpServlet {
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			String name = authUser.getName();
-			int userNo = authUser.getNo();
+			String userNo = authUser.getNo();
 			boardVo.setName(name);
 			boardVo.setTitle(title);
 			boardVo.setContent(content);
@@ -121,6 +116,9 @@ public class BoardController extends HttpServlet {
 			
 			System.out.println(boardVo.toString());
 			WebUtil.redirect(request, response, "/mysite/bbs?a=list");
+		}
+		else if("search".equals(actionName)) {
+			
 		}
 
 		else

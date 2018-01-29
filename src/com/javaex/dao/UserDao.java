@@ -21,7 +21,7 @@ public class UserDao {
 				Class.forName("oracle.jdbc.driver.OracleDriver");
 
 				// Connection 얻어오기
-				String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+				String url = "jdbc:oracle:thin:@localhost:1521:xe";
 				conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 				// sql문 준비 / 바인딩 / 실행
@@ -32,7 +32,7 @@ public class UserDao {
 				psmt.setString(1, vo.getName());
 				psmt.setString(2, vo.getPassword());
 				psmt.setString(3, vo.getGender());
-				psmt.setInt(4, vo.getNo());
+				psmt.setString(4, vo.getNo());
 
 				int count = psmt.executeUpdate();
 
@@ -69,7 +69,7 @@ public class UserDao {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			// Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			// sql문 준비 / 바인딩 / 실행
@@ -83,7 +83,7 @@ public class UserDao {
 			// 결과처리
 			while (rs.next()) {
 				vo = new UserVo();
-				vo.setNo(rs.getInt(1));
+				vo.setNo(rs.getString(1));
 				vo.setName(rs.getString(2));
 				vo.setEmail(rs.getString(3));
 				vo.setPassword(rs.getString(4));
@@ -118,7 +118,7 @@ public class UserDao {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			// Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			// sql문 준비 / 바인딩 / 실행
@@ -154,7 +154,7 @@ public class UserDao {
 		}
 	}
 
-	public UserVo getUser(int no) {
+	public UserVo getUser(String no) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -165,19 +165,19 @@ public class UserDao {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			// Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			// sql문 준비 / 바인딩 / 실행
 			String query = "select no, name, email, password, gender from users where no = ?";
 
 			psmt = conn.prepareStatement(query);
-			psmt.setInt(1, no);
+			psmt.setString(1, no);
 			rs = psmt.executeQuery();
 
 			// 결과처리
 			while (rs.next()) {
-				no = rs.getInt("no");
+				no = rs.getString("no");
 				String name = rs.getString("name");  
 				String email = rs.getString("email");  
 				String password = rs.getString("password");  
@@ -210,4 +210,5 @@ public class UserDao {
 		}
 		return vo;
 	}
+	
 }

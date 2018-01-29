@@ -8,13 +8,13 @@ public class BoardVo {
 	private String date;
 	private int hit;
 	private String name;
-	private int userNo;
+	private String userNo;
 	
 	public BoardVo() {
 	}
 
 
-	public BoardVo(String no, String title, String content, String date, int hit, String name, int userNo) {
+	public BoardVo(String no, String title, String content, String date, int hit, String name, String userNo) {
 		this.no = no;
 		this.title = title;
 		this.content = content;
@@ -85,12 +85,12 @@ public class BoardVo {
 	}
 
 
-	public int getUserNo() {
+	public String getUserNo() {
 		return userNo;
 	}
 
 
-	public void setUserNo(int userNo) {
+	public void setUserNo(String userNo) {
 		this.userNo = userNo;
 	}
 
